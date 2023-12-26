@@ -58,7 +58,46 @@
       // 🧠 Implement a `getAllReversed` method which returns the ints in reverse order
       // ❗ WARNING: except for `getAllReversed`, methods must respect the order of the integers
       // ❗ WARNING: note that none of the methods actually mutate the `ints` property
-
+      constructor(...ints) {
+        this.ints = ints
+        
+      }
+      getAll() {
+        return this.ints;
+      }
+      getEvens() {
+        return this.ints.filter(int => int % 2 === 0)
+      }
+      getNegatives() {
+        return this.ints.filter(int => int < 0)
+      }
+      getAllSquared() {
+        return this.ints.map(int => int ** 2)
+      }
+      pop() {
+        return this.ints.pop()
+      }
+      push(int) {
+        this.pushArray = [];
+        return this.ints.filter(int => {
+          this.pushArray.push(int)
+        })
+        return this.pushArray
+      }
+      getEveryNth(int) {
+        let everyNth = [];
+        //return this.ints.filter((int, idx) => {
+          for (let i = 0; i < this.ints.length; i += int) {
+          everyNth.push(this.ints[i])
+        } return everyNth
+      }
+      getAllReversed() {
+        /*let reversedArray = [];
+        for (let i = this.ints.length - 1; i >= 0; i--) {
+        reversedArray.push(this.ints[i]);
+      } return reversedArray */
+      return this.ints.reverse()
+      }
     }
 
     // 👉 CHALLENGE 2 NerfGun
@@ -76,7 +115,27 @@
       //      * When engaging the safety, return "Safety enabled!"
       //      * When disengaging the safety, return "Safety disabled!"
       // 🌟 HINT: instances need to keep track of their maximum capacity as well as their current capacity
+        constructor(num) {
+          this.num = num;
+          this.safety = true;
+          this.ammo = ammo;
+        }
+        shoot() {
+          if (this.ammo < this.num && !this.safety) {
+            this.ammo--;
+            return 'Bang!'
+          }
+          if (this.ammo === 0 || this.safety) {
+            return 'Click!'
+          }
 
+        }
+        reload() {
+
+        }
+        toggleSafety() {
+          toggle => this.safety ? 'Saftey enabled!' : 'Safety disabled!'
+        }
     }
 
     // 👉 CHALLENGE 3 EBook
