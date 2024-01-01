@@ -79,9 +79,7 @@
       }
       push(int) {
         this.pushArray = [];
-        return this.ints.filter(int => {
-          this.pushArray.push(int)
-        })
+        this.pushArray.push(int)
         return this.pushArray
       }
       getEveryNth(int) {
@@ -118,23 +116,33 @@
         constructor(num) {
           this.num = num;
           this.safety = true;
-          this.ammo = ammo;
+          this.ammo = num;
         }
         shoot() {
-          if (this.ammo < this.num && !this.safety) {
+          if (this.ammo > 0 && !this.safety) {
             this.ammo--;
             return 'Bang!'
           }
-          if (this.ammo === 0 || this.safety) {
+          //if (this.ammo === 0 || this.safety) {
+          else {
             return 'Click!'
           }
-
         }
-        reload() {
-
+        reload(number) {
+          if (this.ammo + number > this.num) {
+            //let load = number <= 0 ? 'Error reloading!' : `${number} projectiles left!`
+            this.ammo = this.num
+            return `${this.num} projectiles left!`
+          } 
+          else {
+            let load = number <= 0 ? 'Error reloading!' : `${number} projectiles left!`
+            this.ammo += number;
+            return load
+          }
         }
         toggleSafety() {
-          toggle => this.safety ? 'Saftey enabled!' : 'Safety disabled!'
+          this.safety = !this.safety
+          return this.safety ? 'Safety enabled!' : 'Safety disabled!'
         }
     }
 
@@ -154,7 +162,21 @@
       //    ebook.next() // returns null
       // 🌟 HINT: remember about the `slice` method which strings and arrays have
       // ❗ Feel free to implement `back`, although this is not required nor graded
-
+      constructor (text, chars) {
+        this.text = text;
+        this.chars = chars;
+        this.bookPage = 0;
+      }
+      next() {
+        if (this.bookPage <= this.text.length) {
+          let begin = this.bookPage
+          this.bookPage += this.chars
+          return this.text.slice(begin, this.bookPage)
+        }
+        else {
+          return null
+        }
+      }
     }
 
     // 👉 CHALLENGE 4 AntFarm
@@ -189,7 +211,34 @@
       //      console.log(list) // prints ["a"]
       // 👉 HINT: if you are not feeling confident with map and filter, solve the problem with for loops,
       //      and with the piece of mind of all tests passing, refactor to use map/filter
-
+        constructor (...names) {
+          //this.name = name;
+          this.ants = names.map(name => ({name: name, health: 100}))
+        }
+        work() {
+          this.ants.filter(ant => ant.health > 0);
+          let workingAnts = this.ants.filter(ant => ant.health > 0);
+          
+          if (workingAnts.length > 0) {
+          //workingAnt.health -= 20;
+          workingAnts.forEach(ant => ant.health -= 20)
+          return `${workingAnts.length} ants starting work!`
+          }
+          else {
+            return 'No ants here. Did you work them to death?'
+          }
+         }
+        feed(name) {
+          let hungryAnts = this.ants.filter(ant => ant.name === name);
+          
+          if (hungryAnts.length > 0) {
+            hungryAnts.forEach(ant => ant.health += 15)
+            return 'Yum!'
+          }
+          else {
+            return `${name} not found!`
+          }
+        }
     }
 
     // 🧪 TESTS, do not make any changes below this line ===================
