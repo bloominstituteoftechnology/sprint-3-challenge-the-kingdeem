@@ -78,7 +78,7 @@
         return this.ints.pop()
       }
       push(int) {
-        this.pushArray = [];
+        //this.pushArray = [];
         this.ints.push(int)
         return this.ints
       }
@@ -129,9 +129,11 @@
           }
         }
         reload(number) {
+          //console.log(this.num)
+          //console.log(number)
           let capacity = this.num;
-          if (number <= 0) {
-            let load = number <= 0 ? 'Error reloading!' : `${number} projectiles left!`
+          if (number <= 0 || typeof number !== typeof 1) {
+            let load = number <= 0 || typeof number !== typeof 1 ? 'Error reloading!' : `${number} projectiles left!`
             this.ammo += number;
             return load
             //return 'Error reloading!'
@@ -144,8 +146,7 @@
           else if (number < capacity) {
             this.ammo += number;
             return `${number} projectiles left!`
-          } 
-          //else 
+          }  
         }
         toggleSafety() {
           this.safety = !this.safety
@@ -223,18 +224,15 @@
           this.ants = names.map(name => ({name: name, health: 100}))
         }
         work() {
-          //this.ants.filter(ant => ant.health > 0);
+          this.ants.filter(ant => ant.health > 0);
           let workingAnts = this.ants.filter(ant => ant.health >= 1);
           
+         
           if (workingAnts.length > 0) {
           //workingAnts.health -= 20;
           workingAnts.forEach(ant => ant.health -= 20)
+          this.ants = this.ants.filter(ant => ant.health > 0);
           return `${workingAnts.length} ants starting work!`
-          }
-          if (workingAnts.health === 0) {
-            for (let idx = 0; workingAnts.length > 0; idx++) {
-              return workingAnts
-            }
           }
           else {
             return 'No ants here. Did you work them to death?'
